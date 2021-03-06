@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { GetStaticProps, GetStaticPaths, GetStaticPropsResult, GetStaticPathsResult } from 'next'
 
-export default function Home() {
+const Home = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -56,3 +57,41 @@ export default function Home() {
     </div>
   )
 }
+
+/**
+ * クライアントサイドレンダリングの処理
+ * @param context
+ */
+export const getStaticProps: GetStaticProps = async (
+  context,
+): Promise<GetStaticPropsResult<any>> => {
+  console.log(context)
+  return { props: {} }
+}
+
+/**
+ * Dynamic Route Path
+ * ページパスが外部データに依存している場合に利用
+ */
+export const getStaticPaths: GetStaticPaths = async (): Promise<GetStaticPathsResult<any>> => {
+  return {
+    paths: ['/'],
+    fallback: false,
+  }
+}
+
+/**
+ * サーバサイドレンダリングの処理
+ * - サーバサイドレンダリングを利用する場合は、getStaticProps/getStaticPaths は利用できない
+ * @param context
+ */
+// export const getServerSideProps: GetServerSideProps = async (
+//   context,
+// ): Promise<GetServerSidePropsResult<any>> => {
+//   console.log(context)
+//   return {
+//     props: {},
+//   }
+// }
+
+export default Home
