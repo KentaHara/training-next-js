@@ -1,8 +1,24 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import { GetStaticProps, GetStaticPaths, GetStaticPropsResult, GetStaticPathsResult } from 'next'
+import { useEffect, useState } from 'react'
 
 const Home = () => {
+  const [count, setCount] = useState(0)
+
+  const countUp = () => {
+    setCount(count + 1)
+  }
+
+  useEffect(() => {
+    console.log('Hook `useEffect`')
+
+    const cleanup = () => {
+      console.log('Hook clean up')
+    }
+    return cleanup
+  })
   return (
     <div className={styles.container}>
       <Head>
@@ -14,6 +30,9 @@ const Home = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <button onClick={countUp}>{count}</button>
+        <Link href="/demo">To Demo Page</Link>
 
         <p className={styles.description}>
           Get started by editing <code className={styles.code}>pages/index.js</code>
